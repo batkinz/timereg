@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import { RegisterTime } from './components/RegisterTime';
+import { CreateInvoice } from './components/CreateInvoice';
 
 export const routes = <Layout>
-    <Route exact path='/' component={ Home } />
-    <Route path='/counter' component={ Counter } />
-    <Route path='/fetchdata' component={ FetchData } />
+    <Route exact path='/' component={ RegisterTime } />
+    <Route path='/invoice' component={ CreateInvoice } />
 </Layout>;

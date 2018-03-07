@@ -7,7 +7,7 @@ interface FetchDataExampleState {
     loading: boolean;
 }
 
-export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
+export class RegisterTime extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
     constructor() {
         super();
         this.state = { forecasts: [], loading: true };
@@ -22,7 +22,7 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : FetchData.renderForecastsTable(this.state.forecasts);
+            : RegisterTime.renderForecastsTable(this.state.forecasts);
 
         return <div>
             <h1>Weather forecast</h1>
