@@ -2,6 +2,8 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 
+import { TimeRow } from '../components/TimeRow';
+
 interface FetchDataExampleState {
     forecasts: WeatherForecast[];
     loading: boolean;
@@ -25,8 +27,7 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Fetch
             : RegisterTime.renderForecastsTable(this.state.forecasts);
 
         return <div>
-            <h1>Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            <h1>Register time</h1>
             { contents }
         </div>;
     }
@@ -35,20 +36,20 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Fetch
         return <table className='table'>
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>Project name</th>
+                    <th>Description</th>
+                    <th>Hours</th>
                 </tr>
             </thead>
             <tbody>
-            {forecasts.map(forecast =>
-                <tr key={ forecast.dateFormatted }>
-                    <td>{ forecast.dateFormatted }</td>
-                    <td>{ forecast.temperatureC }</td>
-                    <td>{ forecast.temperatureF }</td>
-                    <td>{ forecast.summary }</td>
-                </tr>
+            {forecasts.map((forecast, i) =>
+                <TimeRow
+                    key={i}
+                    id="xxx"
+                    date={new Date()}
+                    lengthOfWork={forecast.temperatureC}
+                    projectName={forecast.dateFormatted}
+                    description={forecast.summary} />
             )}
             </tbody>
         </table>;
