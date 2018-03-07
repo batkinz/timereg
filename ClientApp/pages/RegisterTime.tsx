@@ -3,28 +3,27 @@ import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 
 import { TimeRow } from '../components/TimeRow';
+import { TimeSlot } from '../interfaces/TimeSlot';
 
-interface FetchDataExampleState {
-    forecasts: WeatherForecast[];
+interface RegisterTimeState {
+    timeSlots: TimeSlot[];
     loading: boolean;
 }
 
-export class RegisterTime extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
+export class RegisterTime extends React.Component<RouteComponentProps<{}>, RegisterTimeState> {
     constructor() {
         super();
-        this.state = { forecasts: [], loading: true };
+        this.state = { timeSlots: [], loading: true };
 
-        fetch('api/SampleData/WeatherForecasts')
-            .then(response => response.json() as Promise<WeatherForecast[]>)
-            .then(data => {
-                this.setState({ forecasts: data, loading: false });
-            });
+        fetch('api/TimeSlots/GetSlots/2018-03-07')
+            .then(response => response.json() as Promise<TimeSlot[]>)
+            .then(data => this.setState({ timeSlots: data, loading: false }));
     }
 
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : RegisterTime.renderForecastsTable(this.state.forecasts);
+            : RegisterTime.renderTimeSlotsTable(this.state.timeSlots);
 
         return <div>
             <h1>Register time</h1>
@@ -32,7 +31,7 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Fetch
         </div>;
     }
 
-    private static renderForecastsTable(forecasts: WeatherForecast[]) {
+    private static renderTimeSlotsTable(slots: TimeSlot[]) {
         return <table className='table'>
             <thead>
                 <tr>
@@ -42,15 +41,7 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Fetch
                 </tr>
             </thead>
             <tbody>
-            {forecasts.map((forecast, i) =>
-                <TimeRow
-                    key={i}
-                    id="xxx"
-                    date={new Date()}
-                    lengthOfWork={forecast.temperatureC}
-                    projectName={forecast.dateFormatted}
-                    description={forecast.summary} />
-            )}
+            {slots.map((slot, i) => <TimeRow key={slot.id} {...slot} />)}
             </tbody>
         </table>;
     }
