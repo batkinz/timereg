@@ -22,7 +22,7 @@ namespace timereg.Models
                 int rnd = r.Next(-5, 5);
                 slots.Add(new TimeSlot
                 {
-                    Id = 0,
+                    Id = i,
                     Date = DateTime.Now.AddDays(rnd),
                     Description = $"Blah {rnd}",
                     ProjectName = $"Project {rnd}",

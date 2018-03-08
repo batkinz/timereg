@@ -2,6 +2,11 @@
   "name": "timereg",
   "version": "0.0.0",
   "dependencies": {
+    "@types/datejs": {
+      "version": "0.0.30",
+      "from": "@types/datejs@latest",
+      "resolved": "https://registry.npmjs.org/@types/datejs/-/datejs-0.0.30.tgz"
+    },
     "@types/history": {
       "version": "4.6.0",
       "from": "@types/history@4.6.0",
@@ -837,6 +842,11 @@
       "from": "date-now@>=0.1.4 <0.2.0",
       "resolved": "https://registry.npmjs.org/date-now/-/date-now-0.1.4.tgz",
       "dev": true
+    },
+    "datejs": {
+      "version": "1.0.0-rc3",
+      "from": "datejs@latest",
+      "resolved": "https://registry.npmjs.org/datejs/-/datejs-1.0.0-rc3.tgz"
     },
     "debug": {
       "version": "2.6.7",
