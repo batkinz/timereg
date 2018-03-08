@@ -10,17 +10,31 @@ namespace timereg.Controllers
     [Route("api/[controller]")]
     public class TimeSlotsController : Controller
     {
-        private ITimeSlotProvider provider;
+        private ITimeSlotAccess slotAccess;
 
         public TimeSlotsController()
         {
-            provider = new FakeTimeSlotProvider();
+            slotAccess = new InMemoryTimeSlotAccess();
         }
 
         [HttpGet("[action]/{date}")]
         public IEnumerable<TimeSlot> GetSlots(string date)
         {
-            return provider.GetTimeSlots(DateTime.Parse(date));
+            return slotAccess.GetTimeSlots(DateTime.Parse(date));
+        }
+
+        [HttpPost("[action]/{newSlot}")]
+        public ActionResult AddSlot(TimeSlot newSlot)
+        {
+            slotAccess.AddTimeSlot(newSlot);
+            return Ok();
+        }
+
+        [HttpDelete("[action]/{slotId}")]
+        public ActionResult DeleteSlot(int slotId)
+        {
+            slotAccess.DeleteTimeSlot(slotId);
+            return Ok();
         }
     }
 }
