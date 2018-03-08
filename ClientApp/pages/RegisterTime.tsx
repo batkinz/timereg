@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import 'isomorphic-fetch';
+import axios from 'axios';
 import 'datejs';
 
 import { TimeRow } from '../components/TimeRow';
@@ -27,12 +27,10 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
 
     private update(date : Date) {
         this.setState({ loading: true });
-
         const dateString = date.toString("yyyy-MM-dd");
-        console.log(dateString);
 
-        fetch(`api/TimeSlots/GetSlots/${dateString}`)
-            .then(response => response.json() as Promise<TimeSlot[]>)
+        axios.get(`api/TimeSlots/GetSlots/${dateString}`)
+            .then(response => response.data as TimeSlot[])
             .then(data => this.setState({ timeSlots: data, loading: false }));
     }
 
@@ -63,7 +61,7 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
                     <th>Project name</th>
                     <th>Description</th>
                     <th>Hours</th>
-                    <th></th>
+                    <th>Save</th>
                 </tr>
             </thead>
             <tbody>
