@@ -1,5 +1,5 @@
 export interface TimeSlot {
-    id: string;
+    id: number;
     date: Date;
     lengthOfWork: number;
     projectName: string;

@@ -8,7 +8,7 @@ namespace timereg.Models
 {
     public class TimeSlot
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public double LengthOfWork { get; set; }
         public string ProjectName { get; set; }
