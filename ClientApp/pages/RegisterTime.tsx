@@ -70,10 +70,3 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
         </table>);
     }
 }
-
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
