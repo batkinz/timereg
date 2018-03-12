@@ -9,6 +9,9 @@ class TimeSlotApi {
     }
 
     public async addSlot(newSlot : TimeSlot) {
+        // making sure that the date will be correct on the server side
+        newSlot.date = Date.parse(newSlot.date.toString('yyyy-MM-ddTHH:mm:ssZ'));
+
         await axios.post('api/TimeSlots/AddSlot', newSlot);
     }
 

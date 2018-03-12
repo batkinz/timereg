@@ -8,6 +8,7 @@ interface TimeRowState {
     projectName: string;
     description: string;
     lengthOfWork: number;
+    hideInputsStyle: any;
 }
 
 interface TimeRowProperties {
@@ -19,12 +20,13 @@ export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
     constructor(props: TimeRowProperties) {
         super(props);
 
-        const { description, projectName, lengthOfWork, id } = this.props.timeSlot;
+        const { description = "", projectName = "", lengthOfWork, id } = this.props.timeSlot;
         this.state = {
-            dirty: false,
+            dirty: (id == -1),
             projectName,
             description,
             lengthOfWork,
+            hideInputsStyle: { visibility: (id == -1) ? 'hidden' : '' }
         };
     }
 
@@ -53,14 +55,30 @@ export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
 
     public render() {
         const { id } = this.props.timeSlot;
-        return <tr key={id}>
-            <td>
+
+        let addDeleteButton;
+        if (id != -1) {
+            addDeleteButton = (
                 <button className="btn btn-danger" onClick={() => this.deleteRow()}>
                     <span className="glyphicon glyphicon-trash"/>
                 </button>
+            );
+        }
+        else {
+            addDeleteButton = (
+                <button className="btn btn-success" onClick={() => this.setState({ hideInputsStyle: { visibility: '' } })}>
+                    <span className="glyphicon glyphicon-plus"/>
+                </button>
+            );
+        }
+
+        return (<tr key={id}>
+            <td>
+                {addDeleteButton}
             </td>
             <td>
                 <input
+                    style={this.state.hideInputsStyle}
                     className="form-control"
                     name="projectName"
                     value={this.state.projectName}
@@ -68,6 +86,7 @@ export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
             </td>
             <td>
                 <input
+                    style={this.state.hideInputsStyle}
                     className="form-control"
                     name="description"
                     value={this.state.description}
@@ -75,6 +94,7 @@ export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
             </td>
             <td>
                 <input
+                    style={this.state.hideInputsStyle}
                     className="form-control"
                     type="number"
                     name="lengthOfWork"
@@ -82,10 +102,14 @@ export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
                     onChange={e => this.fieldChanged(e)}/>
             </td>
             <td>
-                <button className="btn btn-default" disabled={!this.state.dirty} onClick={() => this.saveRow()}>
+                <button
+                    style={this.state.hideInputsStyle}
+                    className="btn btn-default"
+                    disabled={!this.state.dirty}
+                    onClick={() => this.saveRow()}>
                     <span className="glyphicon glyphicon-floppy-disk" />
                 </button>
             </td>
-        </tr>;
+        </tr>);
     }
 }

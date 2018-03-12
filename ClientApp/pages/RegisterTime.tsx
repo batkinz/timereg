@@ -52,6 +52,8 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
     }
 
     private renderTimeSlotsTable(slots: TimeSlot[]) {
+        const newSlot = { id: -1, date: this.state.currentDate, lengthOfWork: 0 };
+
         return (
         <table className='table'>
             <thead>
@@ -70,6 +72,7 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
                         timeSlot={slot}
                         onChanged={s => this.update(this.state.currentDate)}/>
                 )}
+                <TimeRow key="new" timeSlot={newSlot} onChanged={s => this.update(this.state.currentDate)}/>
             </tbody>
         </table>);
     }
