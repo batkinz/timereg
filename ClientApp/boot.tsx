@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
 import * as RoutesModule from './routes';
 let routes = RoutesModule.routes;
 
@@ -19,6 +20,7 @@ function renderApp() {
     );
 }
 
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 renderApp();
 
 // Allow Hot Module Replacement

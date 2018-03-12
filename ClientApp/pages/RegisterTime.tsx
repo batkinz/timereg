@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import axios from 'axios';
-import 'datejs';
 
 import { TimeRow } from '../components/TimeRow';
 import { TimeSlot } from '../interfaces/TimeSlot';
+import TimeSlotApi from '../api/TimeSlotApi';
 import { CurrentDateWidget } from '../components/CurrentDateWidget';
 
 interface RegisterTimeState {
@@ -19,19 +18,18 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
         this.state = { timeSlots: [], loading: true, currentDate: Date.today() };
 
         this.dateChanged = this.dateChanged.bind(this);
+        this.update = this.update.bind(this);
     }
 
     componentWillMount() {
         this.update(this.state.currentDate);
     }
 
-    private update(date : Date) {
+    private async update(date : Date) {
         this.setState({ loading: true });
-        const dateString = date.toString("yyyy-MM-dd");
 
-        axios.get(`api/TimeSlots/GetSlots/${dateString}`)
-            .then(response => response.data as TimeSlot[])
-            .then(data => this.setState({ timeSlots: data, loading: false }));
+        const slots = await TimeSlotApi.getSlots(date);
+        this.setState({ timeSlots: slots, loading: false });
     }
 
     private dateChanged(newDate : Date) {
@@ -65,7 +63,12 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
                 </tr>
             </thead>
             <tbody>
-                {slots.map((slot, i) => <TimeRow key={i} {...slot} />)}
+                {slots.map((slot, i) =>
+                    <TimeRow
+                        key={i}
+                        timeSlot={slot}
+                        onChanged={s => this.update(this.state.currentDate)}/>
+                )}
             </tbody>
         </table>);
     }

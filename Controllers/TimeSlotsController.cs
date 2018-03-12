@@ -23,15 +23,15 @@ namespace timereg.Controllers
             return slotAccess.GetTimeSlots(DateTime.Parse(date));
         }
 
-        [HttpPost("[action]/{newSlot}")]
-        public ActionResult AddSlot(TimeSlot newSlot)
+        [HttpPost("[action]")]
+        public IActionResult AddSlot([FromBody]TimeSlot newSlot)
         {
             slotAccess.AddTimeSlot(newSlot);
             return Ok();
         }
 
         [HttpDelete("[action]/{slotId}")]
-        public ActionResult DeleteSlot(int slotId)
+        public IActionResult DeleteSlot(int slotId)
         {
             slotAccess.DeleteTimeSlot(slotId);
             return Ok();
