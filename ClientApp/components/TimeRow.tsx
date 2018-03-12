@@ -12,7 +12,7 @@ interface TimeRowState {
 
 interface TimeRowProperties {
     timeSlot: TimeSlot;
-    onChanged: (slot : TimeSlot) => void;
+    onChanged: (slot? : TimeSlot) => void;
 }
 
 export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
@@ -46,8 +46,19 @@ export class TimeRow extends React.Component<TimeRowProperties, TimeRowState> {
         this.props.onChanged(updatedSlot);
     }
 
+    private async deleteRow() {
+        await TimeSlotApi.deleteSlot(this.props.timeSlot.id);
+        this.props.onChanged();
+    }
+
     public render() {
-        return <tr key={this.props.timeSlot.id}>
+        const { id } = this.props.timeSlot;
+        return <tr key={id}>
+            <td>
+                <button className="btn btn-danger" onClick={() => this.deleteRow()}>
+                    <span className="glyphicon glyphicon-trash"/>
+                </button>
+            </td>
             <td>
                 <input
                     className="form-control"

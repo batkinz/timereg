@@ -56,6 +56,7 @@ export class RegisterTime extends React.Component<RouteComponentProps<{}>, Regis
         <table className='table'>
             <thead>
                 <tr>
+                    <th>Delete</th>
                     <th>Project name</th>
                     <th>Description</th>
                     <th>Hours</th>
