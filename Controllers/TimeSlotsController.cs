@@ -12,9 +12,9 @@ namespace timereg.Controllers
     {
         private ITimeSlotAccess slotAccess;
 
-        public TimeSlotsController()
+        public TimeSlotsController(ITimeSlotAccess timeSlotAccess)
         {
-            slotAccess = new InMemoryTimeSlotAccess();
+            slotAccess = timeSlotAccess;
         }
 
         [HttpGet("[action]/{date}")]

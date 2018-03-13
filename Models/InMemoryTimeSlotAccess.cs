@@ -6,15 +6,15 @@ namespace timereg.Models
 {
     public class InMemoryTimeSlotAccess : ITimeSlotAccess
     {
-        private static List<TimeSlot> slots = new List<TimeSlot>();
-        private static object slotsLock = new object();
+        private List<TimeSlot> slots = new List<TimeSlot>();
+        private object slotsLock = new object();
 
-        static InMemoryTimeSlotAccess()
+        public InMemoryTimeSlotAccess()
         {
             FillWithFakeData();
         }
 
-        private static void FillWithFakeData()
+        private void FillWithFakeData()
         {
             Random r = new Random();
             for (int i = 0; i < 10; i++)
