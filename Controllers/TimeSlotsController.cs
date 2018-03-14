@@ -23,6 +23,12 @@ namespace timereg.Controllers
             return slotAccess.GetTimeSlots(DateTime.Parse(date));
         }
 
+        [HttpGet("[action]")]
+        public IEnumerable<TimeSlot> GetSlots(string startDate, string endDate)
+        {
+            return slotAccess.GetTimeSlots(DateTime.Parse(startDate), DateTime.Parse(endDate));
+        }
+
         [HttpPost("[action]")]
         public IActionResult AddSlot([FromBody]TimeSlot newSlot)
         {

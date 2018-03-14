@@ -16,6 +16,10 @@ namespace timereg.Models
 
         private void FillWithFakeData()
         {
+            string[] projectList = new string[] {
+                "Creating viral cat gifs", "Space rocket OS", "Solving global warming",
+            };
+
             Random r = new Random();
             for (int i = 0; i < 10; i++)
             {
@@ -23,10 +27,10 @@ namespace timereg.Models
                 slots.Add(new TimeSlot
                 {
                     Id = i,
-                    Date = DateTime.Now.AddDays(rnd),
+                    Date = DateTime.UtcNow.Date.AddDays(rnd),
                     Description = $"Blah {rnd}",
-                    ProjectName = $"Project {rnd}",
-                    LengthOfWork = Math.Abs(rnd) / 2.0,
+                    ProjectName = projectList[i % projectList.Length],
+                    LengthOfWork = r.Next(1, 6) / 2.0,
                 });
             }
         }
@@ -52,6 +56,14 @@ namespace timereg.Models
         public IEnumerable<TimeSlot> GetTimeSlots(DateTime date)
         {
             return slots.Where(s => s.Date.Year == date.Year && s.Date.DayOfYear == date.DayOfYear);
+        }
+
+        public IEnumerable<TimeSlot> GetTimeSlots(DateTime fromDate, DateTime toDate)
+        {
+            var beginningDate = fromDate.Date;
+            var endPlusOneDayDate = toDate.Date.AddDays(1);
+
+            return slots.Where(s => s.Date >= beginningDate && s.Date < endPlusOneDayDate);
         }
     }
 }
