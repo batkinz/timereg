@@ -5,6 +5,7 @@ import { TimeSlot } from '../interfaces/TimeSlot';
 import TimeSlotApi from '../api/TimeSlotApi';
 import SelectTimeRangeWizardPage from '../components/SelectTimeRangeWizardPage';
 import ListProjectsWizardPage from '../components/ListProjectsWizardPage';
+import InvoiceTableWizardPage from '../components/InvoiceTableWizardPage';
 import { InvoiceWizardPageData } from '../model/InvoiceWizardProps';
 
 interface InvoiceState {
@@ -60,7 +61,7 @@ export class CreateInvoice extends React.Component<RouteComponentProps<{}>, Invo
     }
 
     public render() {
-        const { startDate = '', endDate = '' } = this.state.subPageState;
+        const { startDate = '', endDate = '', selectedProjects = [] } = this.state.subPageState;
         const { currentPageIndex } = this.state;
 
         console.log(this.state);
@@ -78,6 +79,12 @@ export class CreateInvoice extends React.Component<RouteComponentProps<{}>, Invo
                     goNext={this.goToNextWizardPage.bind(this)}
                     startDate={startDate}
                     endDate={endDate} />);
+                break;
+            case 2:
+                currentPage = (<InvoiceTableWizardPage
+                    addData={state => this.setSubPageState(state)}
+                    goNext={this.goToNextWizardPage.bind(this)}
+                    selectedSlots={selectedProjects}/>);
                 break;
             default:
                 currentPage = (<div>Unknown page index: {currentPageIndex}</div>);
