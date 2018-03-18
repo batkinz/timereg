@@ -6,6 +6,8 @@ import { AccuSlot } from '../interfaces/AccuSlot';
 interface InvoiceTableProps extends InvoiceWizardProps
 {
     selectedSlots : AccuSlot[];
+    startDate: string;
+    endDate: string;
 }
 
 interface InvoiceTableState
@@ -54,7 +56,7 @@ export default class InvoiceTableWizardPage extends WizardPageBase<InvoiceTableP
                             type="number"/>
                     </div>
                 </div>
-
+                <h2>{this.props.startDate} - {this.props.endDate}</h2>
                 <table className="table table-striped">
                     <thead>
                         <tr>

@@ -84,7 +84,9 @@ export class CreateInvoice extends React.Component<RouteComponentProps<{}>, Invo
                 currentPage = (<InvoiceTableWizardPage
                     addData={state => this.setSubPageState(state)}
                     goNext={this.goToNextWizardPage.bind(this)}
-                    selectedSlots={selectedProjects}/>);
+                    selectedSlots={selectedProjects}
+                    startDate={startDate}
+                    endDate={endDate}/>);
                 break;
             default:
                 currentPage = (<div>Unknown page index: {currentPageIndex}</div>);
