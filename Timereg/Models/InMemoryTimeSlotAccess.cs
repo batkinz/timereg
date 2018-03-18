@@ -9,9 +9,12 @@ namespace timereg.Models
         private List<TimeSlot> slots = new List<TimeSlot>();
         private object slotsLock = new object();
 
-        public InMemoryTimeSlotAccess()
+        public InMemoryTimeSlotAccess(bool addFakeDate = true)
         {
-            FillWithFakeData();
+            if (addFakeDate)
+            {
+                FillWithFakeData();
+            }
         }
 
         private void FillWithFakeData()
